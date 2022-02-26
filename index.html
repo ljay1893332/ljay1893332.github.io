@@ -26,7 +26,7 @@
     $tempname = $_FILES["uploadfile"]["tmp_name"];    
         $path = "image/".$filename;
           
-    $db = mysqli_connect("localhost", "root", "", "pictures");
+    $db = mysqli_connect("sql6.freemysqlhosting.net", "VybuFpJ2NS", "", "sql6475478");
   
         // Get all the submitted data from the form
         $sql = "REPLACE INTO image (filename) VALUES ('$path')";
