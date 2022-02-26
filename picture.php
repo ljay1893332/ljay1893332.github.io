@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OrangeCaps</title>
+<link rel="stylesheet" type= "text/css" href ="style.css"/>
+<h1> Orange Caps </h1>
+<div id="content">
+
+  <form method="POST" action="" enctype="multipart/form-data">
+      <input type="file" name="uploadfile" value=""/>
+        
+      <div>
+          <button type="submit" name="upload">UPLOAD</button>
+        </div>
+  </form>
+</div>
+</body>
+</html>
+
+
+<?php
+  // If upload button is clicked ...
+  if (isset($_POST['upload'])) {
+  
+    $filename = $_FILES["uploadfile"]["name"];
+    $tempname = $_FILES["uploadfile"]["tmp_name"];    
+        $path = "image/".$filename;
+          
+    $db = mysqli_connect("localhost", "root", "", "pictures");
+  
+        // Get all the submitted data from the form
+        $sql = "REPLACE INTO image (filename) VALUES ('$path')";
+  
+        // Execute query
+        mysqli_query($db, $sql);
+       // Now let's move the uploaded image into the folder: image
+        move_uploaded_file($tempname, $path);
+  }
+  $result = mysqli_query($db, "SELECT * FROM image");
+while($data = mysqli_fetch_array($result))
+{
+      ?>
+<img src="<?php echo $data['filename']; ?> " class="center">
+  
+<?php
+}
+?>
